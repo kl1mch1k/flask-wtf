@@ -1,28 +1,20 @@
-from flask import Flask, url_for, render_template
+from flask import Flask, url_for, render_template, request
 
 app = Flask(__name__)
 
 
-@app.route('/<title>')
-@app.route('/index/<title>')
-def index(title):
-    return render_template('base.html', title=title)
-
-
-@app.route('/training/<prof>')
-def training(prof):
-    return render_template('base.html', prof=prof)
-
-
-@app.route('/list_prof/<list>')
-def list_prof(list):
-    params = {}
-    params['list'] = list
-    params['profs'] = ['инженер-исследователь', 'пилот', 'строитель', 'экзобиолог', 'врач',
-                       'инженер по терраформированию', 'климатолог', 'специалист по радиационной защите', 'астрогеолог',
-                       'гляциолог', 'инженер жизнеобеспечения', 'метеоролог', 'оператор марсохода', 'киберинженер',
-                       'штурман', 'пилот дронов']
-    return render_template('base.html', **params)
+@app.route('/answer', methods=['POST', 'GET'])
+@app.route('/auto_answer', methods=['POST', 'GET'])
+def answer():
+    profs = {'opt1': 'инженер-исследователь',
+             'opt2': 'инженер',
+             'opt3': 'исследователь'}
+    if request.method == 'GET':
+        return render_template('form.html', profs=profs)
+    elif request.method == 'POST':
+        params = dict(request.form)
+        return render_template('answer.html', params=params, profs=
+        ','.join([profs[i] for i in profs if params.get(i)]))
 
 
 if __name__ == '__main__':

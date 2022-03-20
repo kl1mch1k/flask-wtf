@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p> Фамилия: {{params['surname']}}</p>
+    <p> Имя: {{params['name']}}</p>
+    <p> Образование: {{params['edu']}}</p>
+    <p> Профессия: {{profs}}</p>
+    <p> Пол: {{params['sex']}}</p>
+    <p> Мотивация: {{params['about']}}</p>
+    <p>Готовы остаться на марсе: {{params['accept']}}</p>
+{% endblock %}
